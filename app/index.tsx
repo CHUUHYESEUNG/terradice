@@ -4,9 +4,11 @@ import { useRouter } from 'expo-router';
 import ConfettiCannon from 'react-native-confetti-cannon';
 import ShootingStar from '../components/ShootingStar';
 import { getRandomQuestion } from '../data/questions';
+import { useTranslation } from 'react-i18next';
 
 export default function HomeScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [isRolling, setIsRolling] = useState(false);
   const spinValue = new Animated.Value(0);
   const confettiRef = useRef<any>(null);
@@ -92,13 +94,13 @@ export default function HomeScreen() {
           className="text-4xl font-bold text-[#F8F6F0] text-center mb-3"
           style={{ fontFamily: 'Inter_700Bold' }}
         >
-          🌍 TerraDice
+          🌍
         </Text>
         <Text
           className="text-base text-[#F8F6F0]/70 text-center"
           style={{ fontFamily: 'Inter_400Regular' }}
         >
-          지구 어딘가에서 온, 오늘의 질문
+          {t('home.tagline')}
         </Text>
       </View>
 
@@ -129,13 +131,13 @@ export default function HomeScreen() {
         className="text-lg text-[#F8F6F0] font-semibold mb-2"
         style={{ fontFamily: 'Inter_600SemiBold' }}
       >
-        {isRolling ? '질문을 불러오는 중...' : '포춘쿠키를 열어보세요'}
+        {isRolling ? t('home.loading') : t('home.openFortune')}
       </Text>
       <Text
         className="text-sm text-[#F8F6F0]/60 text-center px-8"
         style={{ fontFamily: 'Inter_400Regular' }}
       >
-        지구 어딘가에서 온 질문이 당신을 기다립니다{'\n'}오늘의 생각을 기록해보세요
+        {t('home.description')}
       </Text>
 
       {/* 기록 보기 버튼 */}
@@ -147,7 +149,7 @@ export default function HomeScreen() {
           className="text-[#F8F6F0] font-semibold"
           style={{ fontFamily: 'Inter_600SemiBold' }}
         >
-          📔 내 생각 모아보기
+          {t('home.viewThoughts')}
         </Text>
       </TouchableOpacity>
     </View>

@@ -1,0 +1,47 @@
+{
+  "home": {
+    "tagline": "지구 어딘가에서 온, 오늘의 질문",
+    "loading": "질문을 불러오는 중...",
+    "openFortune": "포춘쿠키를 열어보세요",
+    "description": "지구 어딘가에서 온 질문이 당신을 기다립니다\n오늘의 생각을 기록해보세요",
+    "viewThoughts": "📔 내 생각 모아보기"
+  },
+  "journal": {
+    "permissionMessage": "사진을 선택하려면 갤러리 접근 권한이 필요합니다.",
+    "emptyInput": "답변을 입력해주세요.",
+    "saveSuccessMessage": "오늘의 생각이 저장되었습니다! 🥠",
+    "errorMessage": "저장 중 오류가 발생했습니다.",
+    "promptTitle": "✍️ 당신의 생각을 들려주세요",
+    "promptSubtitle": "정답은 없어요. 지금 이 순간 떠오르는\n솔직한 생각을 자유롭게 적어보세요.",
+    "placeholder": "여기에 답변을 작성하세요...",
+    "addPhoto": "📷 사진 추가하기",
+    "saving": "저장 중...",
+    "save": "💾 생각 저장하기"
+  },
+  "records": {
+    "deleteTitle": "삭제 확인",
+    "deleteMessage": "이 기록을 삭제하시겠습니까?",
+    "deleteSuccessMessage": "기록이 삭제되었습니다.",
+    "deleteErrorMessage": "삭제 중 오류가 발생했습니다.",
+    "emptyTitle": "아직 기록이 없습니다",
+    "emptySubtitle": "포춘쿠키를 열어 첫 생각을 기록해보세요",
+    "totalCount": "총 {{count}}개의 생각 기록",
+    "totalCount_one": "총 {{count}}개의 생각 기록",
+    "totalCount_other": "총 {{count}}개의 생각 기록"
+  },
+  "layout": {
+    "homeTitle": "🌍 TerraDice",
+    "journalTitle": "✍️ 오늘의 질문",
+    "recordsTitle": "📔 나의 생각들"
+  },
+  "common": {
+    "permission": "권한 필요",
+    "notice": "알림",
+    "saveComplete": "저장 완료",
+    "ok": "확인",
+    "cancel": "취소",
+    "delete": "삭제",
+    "done": "완료",
+    "error": "오류"
+  }
+}

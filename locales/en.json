@@ -1,0 +1,47 @@
+{
+  "home": {
+    "tagline": "Today's question from somewhere on Earth",
+    "loading": "Fetching your question...",
+    "openFortune": "Open the fortune cookie",
+    "description": "A question from somewhere on Earth is waiting for you.\nCapture today's thoughts.",
+    "viewThoughts": "📔 View my thoughts"
+  },
+  "journal": {
+    "permissionMessage": "We need access to your gallery to pick a photo.",
+    "emptyInput": "Please enter your answer.",
+    "saveSuccessMessage": "Your thoughts have been saved! 🥠",
+    "errorMessage": "Something went wrong while saving.",
+    "promptTitle": "✍️ Tell us your thoughts",
+    "promptSubtitle": "There is no right answer. Write down whatever\ncomes to mind in this moment.",
+    "placeholder": "Write your answer here...",
+    "addPhoto": "📷 Add a photo",
+    "saving": "Saving...",
+    "save": "💾 Save my thoughts"
+  },
+  "records": {
+    "deleteTitle": "Delete entry",
+    "deleteMessage": "Are you sure you want to delete this entry?",
+    "deleteSuccessMessage": "The record has been deleted.",
+    "deleteErrorMessage": "Something went wrong while deleting.",
+    "emptyTitle": "No records yet",
+    "emptySubtitle": "Open a fortune cookie to save your first thought.",
+    "totalCount": "Total {{count}} saved thoughts",
+    "totalCount_one": "Total {{count}} saved thought",
+    "totalCount_other": "Total {{count}} saved thoughts"
+  },
+  "layout": {
+    "homeTitle": "🌍 TerraDice",
+    "journalTitle": "✍️ Today's question",
+    "recordsTitle": "📔 My thoughts"
+  },
+  "common": {
+    "permission": "Permission required",
+    "notice": "Notice",
+    "saveComplete": "Saved",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "done": "Done",
+    "error": "Error"
+  }
+}

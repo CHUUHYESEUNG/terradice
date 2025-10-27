@@ -11,8 +11,10 @@ import {
 import { useFocusEffect } from 'expo-router';
 import { getRecords, deleteRecord } from '../utils/storage';
 import { JournalRecord } from '../types';
+import { useTranslation } from 'react-i18next';
 
 export default function RecordsScreen() {
+  const { t, i18n } = useTranslation();
   const [records, setRecords] = useState<JournalRecord[]>([]);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -38,18 +40,18 @@ export default function RecordsScreen() {
   };
 
   const handleDelete = (id: string) => {
-    Alert.alert('삭제 확인', '이 기록을 삭제하시겠습니까?', [
-      { text: '취소', style: 'cancel' },
+    Alert.alert(t('records.deleteTitle'), t('records.deleteMessage'), [
+      { text: t('common.cancel'), style: 'cancel' },
       {
-        text: '삭제',
+        text: t('common.delete'),
         style: 'destructive',
         onPress: async () => {
           try {
             await deleteRecord(id);
             await loadRecords();
-            Alert.alert('완료', '기록이 삭제되었습니다.');
+            Alert.alert(t('common.done'), t('records.deleteSuccessMessage'));
           } catch (error) {
-            Alert.alert('오류', '삭제 중 오류가 발생했습니다.');
+            Alert.alert(t('common.error'), t('records.deleteErrorMessage'));
           }
         },
       },
@@ -58,11 +60,24 @@ export default function RecordsScreen() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('ko-KR', {
+    const locale = (() => {
+      if (!i18n.language) {
+        return 'en-US';
+      }
+      if (i18n.language.includes('-')) {
+        return i18n.language;
+      }
+      if (i18n.language.startsWith('ko')) {
+        return 'ko-KR';
+      }
+      return 'en-US';
+    })();
+
+    return new Intl.DateTimeFormat(locale, {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
-    });
+    }).format(date);
   };
 
   const renderRecord = ({ item }: { item: JournalRecord }) => (
@@ -133,13 +148,13 @@ export default function RecordsScreen() {
             className="text-[#F8F6F0] text-xl font-semibold mb-2 text-center"
             style={{ fontFamily: 'Inter_700Bold' }}
           >
-            아직 기록이 없습니다
+            {t('records.emptyTitle')}
           </Text>
           <Text
             className="text-[#F8F6F0]/60 text-center"
             style={{ fontFamily: 'Inter_400Regular' }}
           >
-            포춘쿠키를 열어 첫 생각을 기록해보세요
+            {t('records.emptySubtitle')}
           </Text>
         </View>
       ) : (
@@ -149,7 +164,7 @@ export default function RecordsScreen() {
               className="text-[#F8F6F0]/60 text-sm"
               style={{ fontFamily: 'Inter_400Regular' }}
             >
-              총 {records.length}개의 생각 기록
+              {t('records.totalCount', { count: records.length })}
             </Text>
           </View>
           <FlatList

@@ -3,12 +3,15 @@ import { StatusBar } from 'expo-status-bar';
 import { useFonts, Inter_400Regular, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter';
 import { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
+import { useTranslation } from 'react-i18next';
 import '../global.css';
+import '../i18n';
 
 // Prevent splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const { t } = useTranslation();
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_600SemiBold,
@@ -46,7 +49,7 @@ export default function RootLayout() {
         <Stack.Screen
           name="index"
           options={{
-            title: '🌍 TerraDice',
+            title: t('layout.homeTitle'),
             headerShown: true,
             animation: 'fade',
           }}
@@ -54,7 +57,7 @@ export default function RootLayout() {
         <Stack.Screen
           name="journal"
           options={{
-            title: '✍️ 오늘의 질문',
+            title: t('layout.journalTitle'),
             headerShown: true,
             animation: 'slide_from_right',
           }}
@@ -62,7 +65,7 @@ export default function RootLayout() {
         <Stack.Screen
           name="records"
           options={{
-            title: '📔 나의 생각들',
+            title: t('layout.recordsTitle'),
             headerShown: true,
             animation: 'slide_from_bottom',
           }}

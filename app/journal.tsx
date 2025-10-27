@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
+import { useTranslation } from 'react-i18next';
 import { saveRecord } from '../utils/storage';
 import { JournalRecord } from '../types';
 
@@ -26,6 +27,7 @@ const CARD_COLORS = [
 
 export default function JournalScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const params = useLocalSearchParams();
   const questionId = parseInt(params.questionId as string);
   const question = params.question as string;
@@ -45,7 +47,7 @@ export default function JournalScreen() {
     // 권한 요청
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
-      Alert.alert('권한 필요', '사진을 선택하려면 갤러리 접근 권한이 필요합니다.');
+      Alert.alert(t('common.permission'), t('journal.permissionMessage'));
       return;
     }
 
@@ -68,7 +70,7 @@ export default function JournalScreen() {
 
   const handleSave = async () => {
     if (!note.trim()) {
-      Alert.alert('알림', '답변을 입력해주세요.');
+      Alert.alert(t('common.notice'), t('journal.emptyInput'));
       return;
     }
 
@@ -88,14 +90,14 @@ export default function JournalScreen() {
       };
 
       await saveRecord(record);
-      Alert.alert('저장 완료', '오늘의 생각이 저장되었습니다! 🥠', [
+      Alert.alert(t('common.saveComplete'), t('journal.saveSuccessMessage'), [
         {
-          text: '확인',
+          text: t('common.ok'),
           onPress: () => router.back(),
         },
       ]);
     } catch (error) {
-      Alert.alert('오류', '저장 중 오류가 발생했습니다.');
+      Alert.alert(t('common.error'), t('journal.errorMessage'));
       console.error(error);
     } finally {
       setIsSaving(false);
@@ -135,21 +137,20 @@ export default function JournalScreen() {
           className="text-[#F8F6F0] text-lg font-semibold mb-3"
           style={{ fontFamily: 'Inter_600SemiBold' }}
         >
-          ✍️ 당신의 생각을 들려주세요
+          {t('journal.promptTitle')}
         </Text>
         <Text
           className="text-[#F8F6F0]/60 text-sm mb-4"
           style={{ fontFamily: 'Inter_400Regular' }}
         >
-          정답은 없어요. 지금 이 순간 떠오르는{'\n'}
-          솔직한 생각을 자유롭게 적어보세요.
+          {t('journal.promptSubtitle')}
         </Text>
 
         {/* 답변 입력 */}
         <TextInput
           value={note}
           onChangeText={setNote}
-          placeholder="여기에 답변을 작성하세요..."
+          placeholder={t('journal.placeholder')}
           placeholderTextColor="rgba(248, 246, 240, 0.4)"
           multiline
           className="bg-[#F8F6F0]/10 border border-[#F8F6F0]/20 rounded-2xl p-4 text-[#F8F6F0] min-h-[200px] text-base"
@@ -168,7 +169,7 @@ export default function JournalScreen() {
             className="text-[#F8F6F0] text-base"
             style={{ fontFamily: 'Inter_600SemiBold' }}
           >
-            📷 사진 추가하기
+            {t('journal.addPhoto')}
           </Text>
         </TouchableOpacity>
 
@@ -202,7 +203,7 @@ export default function JournalScreen() {
             className="text-white text-center font-bold text-lg"
             style={{ fontFamily: 'Inter_700Bold' }}
           >
-            {isSaving ? '저장 중...' : '💾 생각 저장하기'}
+            {isSaving ? t('journal.saving') : t('journal.save')}
           </Text>
         </TouchableOpacity>
       </ScrollView>

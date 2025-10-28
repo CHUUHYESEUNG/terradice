@@ -4,6 +4,7 @@ import { useFonts, Inter_400Regular, Inter_600SemiBold, Inter_700Bold } from '@e
 import { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { useTranslation } from 'react-i18next';
+import mobileAds, { MaxAdContentRating } from 'react-native-google-mobile-ads';
 import '../global.css';
 import '../i18n';
 
@@ -23,6 +24,22 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
+
+  useEffect(() => {
+    mobileAds()
+      .setRequestConfiguration({
+        maxAdContentRating: MaxAdContentRating.T,
+        tagForChildDirectedTreatment: false,
+        tagForUnderAgeOfConsent: false,
+        testDeviceIdentifiers: __DEV__ ? ['EMULATOR'] : [],
+      })
+      .then(() => mobileAds().initialize())
+      .catch((error) => {
+        if (__DEV__) {
+          console.warn('Failed to initialize AdMob SDK', error);
+        }
+      });
+  }, []);
 
   if (!fontsLoaded) {
     return null;

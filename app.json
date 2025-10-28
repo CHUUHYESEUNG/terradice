@@ -48,6 +48,14 @@
         "backgroundColor": "#0B1E38"
       },
       "package": "com.terradice.app"
+    },
+    "extra": {
+      "router": {
+        "root": "./app"
+      },
+      "eas": {
+        "projectId": "2cd603e8-4f18-4e84-abe3-70d65d536ea2"
+      }
     }
   }
 }

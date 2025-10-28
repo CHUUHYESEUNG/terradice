@@ -5,7 +5,6 @@ import ConfettiCannon from 'react-native-confetti-cannon';
 import ShootingStar from '../components/ShootingStar';
 import { getRandomQuestion } from '../data/questions';
 import { useTranslation } from 'react-i18next';
-import AdMobBanner from '../components/AdMobBanner';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -141,15 +140,10 @@ export default function HomeScreen() {
         {t('home.description')}
       </Text>
 
-      {/* 배너 광고 */}
-      <View className="absolute bottom-28 left-0 right-0 px-6">
-        <AdMobBanner />
-      </View>
-
       {/* 기록 보기 버튼 */}
       <TouchableOpacity
         onPress={() => router.push('/records')}
-        className="absolute bottom-8 bg-[#F8F6F0]/10 px-8 py-4 rounded-full border border-[#F8F6F0]/20"
+        className="absolute bottom-12 bg-[#F8F6F0]/10 px-8 py-4 rounded-full border border-[#F8F6F0]/20"
       >
         <Text
           className="text-[#F8F6F0] font-semibold"

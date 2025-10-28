@@ -1,12 +1,29 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useFonts, Inter_400Regular, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter';
 import { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { useTranslation } from 'react-i18next';
-import mobileAds, { MaxAdContentRating } from 'react-native-google-mobile-ads';
 import '../global.css';
 import '../i18n';
+
+type MobileAdsModule = typeof import('react-native-google-mobile-ads');
+
+const googleMobileAdsModule: MobileAdsModule | null = (() => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    return require('react-native-google-mobile-ads');
+  } catch (error) {
+    if (__DEV__) {
+      console.warn(
+        'AdMob native module is unavailable. Install react-native-google-mobile-ads and run a dev client or prebuild to test ads.',
+        error
+      );
+    }
+    return null;
+  }
+})();
 
 // Prevent splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();
@@ -26,6 +43,12 @@ export default function RootLayout() {
   }, [fontsLoaded]);
 
   useEffect(() => {
+    if (!googleMobileAdsModule) {
+      return;
+    }
+
+    const { default: mobileAds, MaxAdContentRating } = googleMobileAdsModule;
+
     mobileAds()
       .setRequestConfiguration({
         maxAdContentRating: MaxAdContentRating.T,
@@ -46,7 +69,7 @@ export default function RootLayout() {
   }
 
   return (
-    <>
+    <SafeAreaProvider>
       <Stack
         screenOptions={{
           headerStyle: {
@@ -89,6 +112,6 @@ export default function RootLayout() {
         />
       </Stack>
       <StatusBar style="light" />
-    </>
+    </SafeAreaProvider>
   );
 }

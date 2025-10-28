@@ -12,6 +12,7 @@ import { useFocusEffect } from 'expo-router';
 import { getRecords, deleteRecord } from '../utils/storage';
 import { JournalRecord } from '../types';
 import { useTranslation } from 'react-i18next';
+import AdMobBanner from '../components/AdMobBanner';
 
 export default function RecordsScreen() {
   const { t, i18n } = useTranslation();
@@ -142,20 +143,25 @@ export default function RecordsScreen() {
   return (
     <View className="flex-1 bg-[#0B1E38]">
       {records.length === 0 ? (
-        <View className="flex-1 justify-center items-center px-8">
-          <Text className="text-6xl mb-4">📔</Text>
-          <Text
-            className="text-[#F8F6F0] text-xl font-semibold mb-2 text-center"
-            style={{ fontFamily: 'Inter_700Bold' }}
-          >
-            {t('records.emptyTitle')}
-          </Text>
-          <Text
-            className="text-[#F8F6F0]/60 text-center"
-            style={{ fontFamily: 'Inter_400Regular' }}
-          >
-            {t('records.emptySubtitle')}
-          </Text>
+        <View className="flex-1 justify-between items-center px-8 py-10">
+          <View className="items-center">
+            <Text className="text-6xl mb-4">📔</Text>
+            <Text
+              className="text-[#F8F6F0] text-xl font-semibold mb-2 text-center"
+              style={{ fontFamily: 'Inter_700Bold' }}
+            >
+              {t('records.emptyTitle')}
+            </Text>
+            <Text
+              className="text-[#F8F6F0]/60 text-center"
+              style={{ fontFamily: 'Inter_400Regular' }}
+            >
+              {t('records.emptySubtitle')}
+            </Text>
+          </View>
+          <View className="w-full px-4">
+            <AdMobBanner />
+          </View>
         </View>
       ) : (
         <>
@@ -178,7 +184,12 @@ export default function RecordsScreen() {
                 tintColor="#F8F6F0"
               />
             }
-            contentContainerStyle={{ paddingBottom: 20, paddingTop: 10 }}
+            contentContainerStyle={{ paddingBottom: 120, paddingTop: 10 }}
+            ListFooterComponent={
+              <View className="px-4 pt-6">
+                <AdMobBanner />
+              </View>
+            }
           />
         </>
       )}

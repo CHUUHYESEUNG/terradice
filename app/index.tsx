@@ -51,13 +51,13 @@ export default function HomeScreen() {
         setIsRolling(false);
         spinValue.setValue(0);
 
-        // 저널 화면으로 이동
+        // 저널 화면으로 이동 (번역된 값 전달)
         router.push({
           pathname: '/journal',
           params: {
             questionId: randomQuestion.id.toString(),
-            question: randomQuestion.question,
-            category: randomQuestion.category,
+            question: t(randomQuestion.question),
+            category: t(randomQuestion.category),
             emoji: randomQuestion.emoji,
           },
         });

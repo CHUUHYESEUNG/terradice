@@ -2,9 +2,10 @@ import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, Animated, Easing } from 'react-native';
 import { useRouter } from 'expo-router';
 import ConfettiCannon from 'react-native-confetti-cannon';
-import ShootingStar from '../components/ShootingStar';
 import { getRandomQuestion } from '../data/questions';
 import { useTranslation } from 'react-i18next';
+import LottieView from 'lottie-react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -13,6 +14,7 @@ export default function HomeScreen() {
   const spinValue = new Animated.Value(0);
   const confettiRef = useRef<any>(null);
   const scaleValue = useRef(new Animated.Value(1)).current;
+  const insets = useSafeAreaInsets();
 
   const handleRollDice = () => {
     if (isRolling) return;
@@ -71,13 +73,7 @@ export default function HomeScreen() {
   });
 
   return (
-    <View className="flex-1 bg-[#0B1E38] px-6 justify-center items-center">
-      {/* 별똥별 배경 */}
-      <ShootingStar delay={0} />
-      <ShootingStar delay={2000} />
-      <ShootingStar delay={4000} />
-      <ShootingStar delay={6000} />
-
+    <View className="flex-1 bg-[#0B1E38] px-6 pt-12 items-center">
       {/* Confetti */}
       <ConfettiCannon
         ref={confettiRef}
@@ -89,15 +85,15 @@ export default function HomeScreen() {
       />
 
       {/* 타이틀 */}
-      <View className="mb-12">
+      <View className="mb-12 items-center">
+        <LottieView
+          source={require('../assets/lottie/earth.json')}
+          autoPlay
+          loop
+          style={{ width: 200, height: 200 }}
+        />
         <Text
-          className="text-4xl font-bold text-[#F8F6F0] text-center mb-3"
-          style={{ fontFamily: 'Inter_700Bold' }}
-        >
-          🌍
-        </Text>
-        <Text
-          className="text-base text-[#F8F6F0]/70 text-center"
+          className="text-lg text-[#F8F6F0]/70 text-center z-999"
           style={{ fontFamily: 'Inter_400Regular' }}
         >
           {t('home.tagline')}
@@ -109,18 +105,18 @@ export default function HomeScreen() {
         <TouchableOpacity
           onPress={handleRollDice}
           disabled={isRolling}
-          className="bg-[#4CAEFF] rounded-full w-40 h-40 justify-center items-center shadow-lg mb-8"
+          className="bg-[#4CAEFF] rounded-full w-44 h-44 justify-center items-center shadow-lg mb-8"
           style={{
             shadowColor: '#4CAEFF',
             shadowOffset: { width: 0, height: 4 },
             shadowOpacity: 0.5,
-            shadowRadius: 8,
-            elevation: 8,
+            shadowRadius: 10,
+            elevation: 10,
           }}
         >
           <Animated.Text
             style={{ transform: [{ rotate: spin }] }}
-            className="text-7xl"
+            className="text-8xl mt-6"
           >
             🥠
           </Animated.Text>
@@ -143,7 +139,8 @@ export default function HomeScreen() {
       {/* 기록 보기 버튼 */}
       <TouchableOpacity
         onPress={() => router.push('/records')}
-        className="absolute bottom-12 bg-[#F8F6F0]/10 px-8 py-4 rounded-full border border-[#F8F6F0]/20"
+        className="absolute bg-[#F8F6F0]/10 px-8 py-4 rounded-full border border-[#F8F6F0]/20"
+        style={{ bottom: insets.bottom + 64 }}
       >
         <Text
           className="text-[#F8F6F0] font-semibold"

@@ -130,7 +130,7 @@ export default function HomeScreen() {
         {isRolling ? t('home.loading') : t('home.openFortune')}
       </Text>
       <Text
-        className="text-sm text-[#F8F6F0]/60 text-center px-8"
+        className="text-sm text-[#F8F6F0]/60 text-center"
         style={{ fontFamily: 'Inter_400Regular' }}
       >
         {t('home.description')}
